@@ -208,16 +208,7 @@ public class Individual implements Comparable<Individual> {
 	}
 
 	//mutation by swap to point
-	public void mutation() {
-		int left, right; // mutation point
-		left = rand.nextInt(Individual.defaultGeneLength);
-		do {
-			right = rand.nextInt(Individual.defaultGeneLength);
-		} while (right == left);
-		int temp = getGene().get(left);
-		getGene().set(left, getGene().get(right));
-		getGene().set(right, temp);
-	}
+	
 
 	public ArrayList<Integer> getGene() {
 		return gene;

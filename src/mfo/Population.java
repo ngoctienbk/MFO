@@ -29,15 +29,32 @@ public class Population {
 			child = pMX(indiv1, indiv2);
 			child.get(0).setFitness();
 			child.get(1).setFitness();
-			//System.out.println("Same Skill factor");
 			return child;
 		} else {
-			indiv1.mutation();
-			indiv2.mutation();
-			child.add(indiv1);
-			child.add(indiv2);
+			child.add(mutation(indiv1));
+			child.add(mutation(indiv2));
 			return child;
 		}
+	}
+
+	public static Individual mutation(Individual indiv) {
+		Individual ind = new Individual();
+		int left, right; // mutation point
+		left = rand.nextInt(Individual.defaultGeneLength);
+		do {
+			right = rand.nextInt(Individual.defaultGeneLength);
+		} while (right == left);
+		for (int i = 0; i < Individual.defaultGeneLength; i++) {
+			if (i == left) {
+				ind.addGene(indiv.getGene().get(right), left);
+			} else if (i == right) {
+				ind.addGene(indiv.getGene().get(left), right);
+			} else {
+				ind.addGene(indiv.getGene().get(i), i);
+			}
+		}
+		ind.setFitness();
+		return ind;
 	}
 
 	public void calculateScalarFitness(ArrayList<Individual> pop, int popLength) {
@@ -45,7 +62,7 @@ public class Population {
 		ArrayList<Individual> temp_pop = new ArrayList<Individual>(popLength);
 		// printPop(pop);
 		temp_pop = pop;
-		//System.out.println();
+		// System.out.println();
 		for (int i = 0; i < popLength; i++) {
 			scalarFitness[i] = 0;
 			pop.get(i).setScalarFitness(0);
@@ -84,7 +101,7 @@ public class Population {
 			left = temp;
 		} // left always must be smaller than right
 			// generate child1
-		//System.out.println(left + " " + right);
+			// System.out.println(left + " " + right);
 		for (int i = 0; i < Individual.defaultGeneLength; i++) {
 			int temp = -1;
 			// if i out of two cross over point, find the mapped of gene(i)
@@ -123,29 +140,6 @@ public class Population {
 		}
 		child.add(ind2);
 		return child;
-	}
-
-	public static void main(String[] args) {
-		Population pop = new Population();
-		pop.initPopulation();
-		run(pop);
-		System.out.println();
-	}
-
-	public static void run(Population pop) {
-		int parentIndex1, parentIndex2;
-		Population temp_pop = new Population();
-		parentIndex1 = rand.nextInt(Population.defaultPopLength);
-		do {
-			parentIndex2 = rand.nextInt(Population.defaultPopLength);
-		} while (parentIndex1 == parentIndex2);
-		ArrayList<Individual> childs = new ArrayList<Individual>();
-		for (int i = 0; i < Population.defaultPopLength / 2; i++) {
-			childs = Population.crossOver(pop.population.get(parentIndex1), pop.population.get(parentIndex2));
-			temp_pop.population.add(childs.get(0));
-			temp_pop.population.add(childs.get(1));
-		}
-		temp_pop.printPop(temp_pop.population);
 	}
 
 }
