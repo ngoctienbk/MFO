@@ -31,6 +31,7 @@
  6. Algorithm.java: file chứa hàm main để thực thi của chương trình
   - Trong file này có chứa hàm run() chính là hàm chạy, trong hàm này có chứa các bước lựa chọn, lai ghép/đột biến, tạo quần thể tạm gồm 200 phần tử, sắp xếp quần thể tạm theo scalarFitness, chọn 100 phần tử có scalarFiness tốt nhất để đưa vào quần thể mới.
   - trong hàm main(), chỉ việc gọi hàm run() bao nhiêu lần tùy ý muốn.
+  
 @Cách chạy: 
  - Thay đổi nội dung file require.txt để chạy với số lượng và các bài toán tsp khác nhau.
  - Thường thì nên để vòng for trong hàm main() của file Algorithm.java chạy khoảng 300-500 lần là đã hội tụ rồi. 
