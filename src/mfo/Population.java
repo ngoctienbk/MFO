@@ -10,9 +10,6 @@ public class Population {
 	public ArrayList<Individual> population = new ArrayList<Individual>(defaultPopLength);
 	public static Random rand = new Random(5);
 
-	public Population() {
-	};
-
 	public void initPopulation() {
 		for (int i = 0; i < defaultPopLength; i++) {
 			Individual indiv = new Individual();
@@ -20,7 +17,6 @@ public class Population {
 			population.add(indiv);
 		}
 		calculateScalarFitness(population, defaultPopLength);
-		printPop(population);
 	}
 
 	public static ArrayList<Individual> crossOver(Individual indiv1, Individual indiv2) {
@@ -60,9 +56,7 @@ public class Population {
 	public void calculateScalarFitness(ArrayList<Individual> pop, int popLength) {
 		double[] scalarFitness = new double[popLength];
 		ArrayList<Individual> temp_pop = new ArrayList<Individual>(popLength);
-		// printPop(pop);
 		temp_pop = pop;
-		// System.out.println();
 		for (int i = 0; i < popLength; i++) {
 			scalarFitness[i] = 0;
 			pop.get(i).setScalarFitness(0);
@@ -79,13 +73,6 @@ public class Population {
 		}
 	}
 
-	public void printPop(ArrayList<Individual> pop) {
-		for (int i = 0; i < defaultPopLength; i++) {
-			pop.get(i).printIndiv();
-		}
-		System.out.println();
-	}
-
 	public static ArrayList<Individual> pMX(Individual indiv1, Individual indiv2) {
 		ArrayList<Individual> child = new ArrayList<Individual>();
 		Individual ind1 = new Individual();
@@ -94,14 +81,13 @@ public class Population {
 		left = rand.nextInt(Individual.defaultGeneLength);
 		do {
 			right = rand.nextInt(Individual.defaultGeneLength);
-		} while (right == left); // left, right must be different number
+		} while (right == left); // left, right must be two different number
 		if (left > right) {
 			int temp = right;
 			right = left;
 			left = temp;
 		} // left always must be smaller than right
 			// generate child1
-			// System.out.println(left + " " + right);
 		for (int i = 0; i < Individual.defaultGeneLength; i++) {
 			int temp = -1;
 			// if i out of two cross over point, find the mapped of gene(i)

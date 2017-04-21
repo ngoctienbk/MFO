@@ -1,10 +1,10 @@
 package mfo;
 
 public class City {
-	//each object of this class will store coordinates of one city
-	
-	double x;
-	double y;
+	// each object of this class will store coordinates of one city
+
+	private double x;
+	private double y;
 
 	public City() {
 	}

@@ -12,18 +12,27 @@ public class Algorithm {
 		System.out.println("Before MFO");
 		Population pop = new Population();
 		pop.initPopulation();
+		for (int i = 0; i < Population.defaultPopLength; i++) {
+			if (pop.population.get(i).getScalarFitness() == 1) {
+				printDecodeResult(pop.population.get(i),
+						Individual.tsp.get(pop.population.get(i).getSkillFactor() - 1));
+			}
+		}
 		for (int i = 0; i < 500; i++) {
 			pop = run(pop);
 		}
 		System.out.println("After MFO");
-		pop.printPop(pop.population);
+		for (int i = 0; i < Individual.numberOfFiles; i++) {
+			printDecodeResult(pop.population.get(i), Individual.tsp.get(pop.population.get(i).getSkillFactor() - 1));
+		}
 	}
 
 	public static Population run(Population pop) {
 		Population temp_pop = new Population(); // population with 200
 												// individuals
 		Population new_pop = new Population(); // population to store 100
-												// fittest individuals
+												// fittest individuals to next
+												// step
 		temp_pop = pop;
 		for (int i = 0; i < Population.defaultPopLength / 2; i++) {
 			// ramdomly choose parents to crossover or mutation
@@ -39,7 +48,7 @@ public class Algorithm {
 			temp_pop.population.add(childs.get(0));
 			temp_pop.population.add(childs.get(1));
 		}
-		// calculate scalarFitness and skillFactor to temp_pop
+		// calculate scalarFitness and skillFactor of temp_pop
 		temp_pop.calculateScalarFitness(temp_pop.population, temp_pop.population.size());
 		// sort temp_pop by scalarFitness
 		Collections.sort(temp_pop.population, Individual.compareByScalarFitness);
@@ -48,5 +57,14 @@ public class Algorithm {
 			new_pop.population.add(temp_pop.population.get(i));
 		}
 		return new_pop;
+	}
+
+	public static void printDecodeResult(Individual indiv, TSP tsp) {
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		arr = indiv.decode(tsp);
+		for (int i = 0; i < arr.size(); i++) {
+			System.out.print(arr.get(i) + " ");
+		}
+		System.out.println(indiv.fitness.get(indiv.getSkillFactor() - 1) + " " + indiv.getSkillFactor());
 	}
 }

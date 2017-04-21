@@ -11,7 +11,6 @@ import java.util.Random;
 public class Individual implements Comparable<Individual> {
 
 	// each object of this class will store one solution
-	// read from
 
 	private ArrayList<Integer> gene = new ArrayList<Integer>();
 	private int skillFactor;
@@ -140,13 +139,13 @@ public class Individual implements Comparable<Individual> {
 		return distances;
 	}
 
-	// initialize
+	// initialize gene of individual
 	public void initGene() {
 		for (int i = 0; i < defaultGeneLength; i++) {
 			getGene().add(i + 1);
 		}
 		Collections.shuffle(getGene(), rand);
-		setFitness(); // set fitness with each problem
+		setFitness(); // set fitness of this individuals with each problem
 	}
 
 	// decode and get fitness with one problem
@@ -180,7 +179,7 @@ public class Individual implements Comparable<Individual> {
 		return decodeResult;
 	}
 
-	// compare to sort in Population by fitness.get(0)
+	// compare to sort Population by fitness.get(0)
 	@Override
 	public int compareTo(Individual o) {
 		// TODO Auto-generated method stub
@@ -189,14 +188,14 @@ public class Individual implements Comparable<Individual> {
 		return temp;
 	}
 
-	// compare to sort in Population by scalarFitness
+	// compare to sort Population by scalarFitness
 	public static Comparator<Individual> compareByScalarFitness = new Comparator<Individual>() {
 		public int compare(Individual one, Individual other) {
 			return Double.compare(other.scalarFitness, one.scalarFitness);
 		}
 	};
 
-	//swap fitness list to sort
+	// swap fitness list to sort
 	public void swap() {
 		double d = fitness.get(0);
 		fitness.remove(0);
@@ -207,22 +206,8 @@ public class Individual implements Comparable<Individual> {
 		gene.add(index, value);
 	}
 
-	//mutation by swap to point
-	
-
 	public ArrayList<Integer> getGene() {
 		return gene;
-	}
-
-	public void printIndiv() {
-		for (int i = 0; i < defaultGeneLength; i++) {
-			System.out.print(gene.get(i) + " ");
-		}
-		for (int i = 0; i < numberOfFiles; i++) {
-			System.out.print(fitness.get(i) + " ");
-		}
-		System.out.print(skillFactor + " " + scalarFitness);
-		System.out.println();
 	}
 
 }
